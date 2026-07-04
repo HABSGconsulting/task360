@@ -1,0 +1,48 @@
+name: Enrich Startup Data
+
+on:
+  workflow_dispatch:
+    inputs:
+      batch_size:
+        description: 'Number of startups to process per run'
+        required: false
+        default: '20'
+  schedule:
+    # Runs every Sunday at 2 AM IST (20:30 UTC Saturday)
+    - cron: '30 20 * * 0'
+
+jobs:
+  enrich:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install pandas openai python-dotenv tqdm
+
+      - name: Run enrichment script
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: |
+          python scripts/enrich_startups.py \
+            --input  data/FUST_cleaned.csv \
+            --output data/FUST_enriched.json \
+            --batch  ${{ github.event.inputs.batch_size || '20' }}
+
+      - name: Commit enriched output
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/FUST_enriched.json
+          git diff --cached --quiet || git commit -m "chore: update FUST_enriched.json [skip ci]"
+          git push
