@@ -1,0 +1,448 @@
+{
+  "_meta": {
+    "purpose": "Maps startup Category and Funding Stage to relevant Task360 service clusters. Used by Script 3 to generate service_relevance block per startup. AI must select only from these service names.",
+    "created": "2026-07-04",
+    "used_by": ["03_generate_intelligence.py"],
+    "phases": ["Launch", "Operate", "Grow"],
+    "instruction_for_ai": "Based on the startup's Category and Funding Stage, select 3-5 most relevant Task360 services from the allowed list below. Return only service names exactly as written here."
+  },
+
+  "all_services": {
+
+    "Launch": [
+      "Private Limited Company Registration",
+      "LLP Registration",
+      "One Person Company Registration",
+      "Foreign Subsidiary Registration",
+      "Section 8 Company Registration",
+      "Partnership Registration",
+      "Sole Proprietorship Registration",
+      "GST Registration",
+      "Startup India Recognition",
+      "MSME Registration",
+      "PF Registration",
+      "ESIC Registration",
+      "Shop & Establishment Registration",
+      "Professional Tax Registration",
+      "FSSAI Registration",
+      "Import Export Code (IEC)",
+      "Trademark Registration"
+    ],
+
+    "Operate": [
+      "Accounting & Bookkeeping",
+      "GST Filings",
+      "TDS / Withholding Tax",
+      "Income Tax Returns",
+      "Virtual CFO",
+      "Secretarial Compliances",
+      "Startup ESOPs",
+      "Stock Appreciation Rights (SAR)",
+      "Company Closure",
+      "Co-founders Agreement",
+      "Reverse Vesting",
+      "Share Purchase Agreement",
+      "Employment Contract",
+      "GST Advisory & Reconciliation",
+      "GST Litigation Support",
+      "International Trade Advisory",
+      "GST Training & Awareness"
+    ],
+
+    "Grow": [
+      "Startup Fundraise Support",
+      "Valuation Advisory",
+      "Due Diligence",
+      "Pitch Deck Creation",
+      "FDI Compliances under FEMA",
+      "Income Tax Consultancy",
+      "Transaction Advisory",
+      "Merger & Acquisition Advisory",
+      "Flip Transaction",
+      "Reverse Flip",
+      "SME IPO Advisory"
+    ]
+  },
+
+  "by_category": {
+
+    "FinTech": {
+      "always_relevant": [
+        "GST Registration",
+        "Startup India Recognition",
+        "Accounting & Bookkeeping",
+        "GST Filings",
+        "FDI Compliances under FEMA",
+        "Secretarial Compliances"
+      ],
+      "growth_stage_relevant": [
+        "Valuation Advisory",
+        "Startup Fundraise Support",
+        "Due Diligence",
+        "Flip Transaction",
+        "Income Tax Consultancy"
+      ],
+      "notes": "FinTechs receiving foreign investment almost always need FDI/FEMA compliance. RBI-regulated entities have additional secretarial obligations."
+    },
+
+    "SaaS / Software": {
+      "always_relevant": [
+        "Private Limited Company Registration",
+        "GST Registration",
+        "Startup India Recognition",
+        "Accounting & Bookkeeping",
+        "GST Filings",
+        "Startup ESOPs",
+        "Employment Contract"
+      ],
+      "growth_stage_relevant": [
+        "Valuation Advisory",
+        "Startup Fundraise Support",
+        "Flip Transaction",
+        "FDI Compliances under FEMA",
+        "Virtual CFO"
+      ],
+      "notes": "SaaS companies targeting global markets often need Flip structures for Delaware/Singapore holding. ESOPs critical for talent retention."
+    },
+
+    "D2C / E-commerce": {
+      "always_relevant": [
+        "GST Registration",
+        "GST Filings",
+        "FSSAI Registration",
+        "Trademark Registration",
+        "Accounting & Bookkeeping",
+        "Shop & Establishment Registration"
+      ],
+      "growth_stage_relevant": [
+        "Import Export Code (IEC)",
+        "International Trade Advisory",
+        "Valuation Advisory",
+        "Startup Fundraise Support",
+        "Virtual CFO"
+      ],
+      "notes": "D2C food brands need FSSAI. All e-commerce brands need GST and trademark protection. Exporters need IEC."
+    },
+
+    "HealthTech / MedTech": {
+      "always_relevant": [
+        "Private Limited Company Registration",
+        "GST Registration",
+        "Startup India Recognition",
+        "Accounting & Bookkeeping",
+        "PF Registration",
+        "ESIC Registration",
+        "Employment Contract"
+      ],
+      "growth_stage_relevant": [
+        "Valuation Advisory",
+        "Startup Fundraise Support",
+        "Due Diligence",
+        "Startup ESOPs",
+        "Virtual CFO"
+      ],
+      "notes": "HealthTechs with clinical staff need PF/ESIC. MedTech hardware importers need IEC. Biotech/pharma entities may need Section 8 or special structures."
+    },
+
+    "AI / Data / DeepTech": {
+      "always_relevant": [
+        "Private Limited Company Registration",
+        "Startup India Recognition",
+        "GST Registration",
+        "Accounting & Bookkeeping",
+        "Startup ESOPs",
+        "Co-founders Agreement",
+        "Employment Contract"
+      ],
+      "growth_stage_relevant": [
+        "Valuation Advisory",
+        "Startup Fundraise Support",
+        "Flip Transaction",
+        "FDI Compliances under FEMA",
+        "Due Diligence"
+      ],
+      "notes": "AI startups targeting global markets frequently flip to US/Singapore. IP protection via employment contracts with IP clauses is critical."
+    },
+
+    "AgriTech / FoodTech": {
+      "always_relevant": [
+        "MSME Registration",
+        "GST Registration",
+        "FSSAI Registration",
+        "Startup India Recognition",
+        "Accounting & Bookkeeping",
+        "GST Filings"
+      ],
+      "growth_stage_relevant": [
+        "Valuation Advisory",
+        "Startup Fundraise Support",
+        "Import Export Code (IEC)",
+        "International Trade Advisory",
+        "Virtual CFO"
+      ],
+      "notes": "Food-related startups always need FSSAI. AgriTech processing units benefit from MSME registration for credit access. Exporters need IEC."
+    },
+
+    "CleanTech / Climate / Energy": {
+      "always_relevant": [
+        "Private Limited Company Registration",
+        "Startup India Recognition",
+        "MSME Registration",
+        "GST Registration",
+        "Accounting & Bookkeeping",
+        "Import Export Code (IEC)"
+      ],
+      "growth_stage_relevant": [
+        "Valuation Advisory",
+        "Startup Fundraise Support",
+        "Due Diligence",
+        "FDI Compliances under FEMA",
+        "Transaction Advisory"
+      ],
+      "notes": "CleanTech hardware companies importing solar/battery components need IEC. Many receive foreign climate/impact funding requiring FEMA compliance."
+    },
+
+    "Manufacturing / Hardware / Industrial": {
+      "always_relevant": [
+        "MSME Registration",
+        "GST Registration",
+        "Import Export Code (IEC)",
+        "Accounting & Bookkeeping",
+        "GST Filings",
+        "PF Registration",
+        "ESIC Registration"
+      ],
+      "growth_stage_relevant": [
+        "Valuation Advisory",
+        "Due Diligence",
+        "Transaction Advisory",
+        "Merger & Acquisition Advisory",
+        "SME IPO Advisory"
+      ],
+      "notes": "Manufacturing SMEs are prime SME IPO candidates. Hardware importers need IEC. Large workforces require PF/ESIC."
+    },
+
+    "Services / Consulting / Others": {
+      "always_relevant": [
+        "GST Registration",
+        "Accounting & Bookkeeping",
+        "GST Filings",
+        "Employment Contract",
+        "Professional Tax Registration"
+      ],
+      "growth_stage_relevant": [
+        "Valuation Advisory",
+        "Startup Fundraise Support",
+        "Virtual CFO",
+        "Startup ESOPs",
+        "Secretarial Compliances"
+      ],
+      "notes": "Highly diverse sub-sector. EdTech, logistics, gaming, real estate each have different registration requirements. Assess sub-sector before recommending."
+    }
+  },
+
+  "by_funding_stage": {
+
+    "Pre-Seed": {
+      "phase_focus": "Launch",
+      "top_services": [
+        "Private Limited Company Registration",
+        "Co-founders Agreement",
+        "Startup India Recognition",
+        "GST Registration",
+        "Trademark Registration"
+      ],
+      "rationale": "Most pressing need is legal structure, founder agreements, and basic registrations before first external capital."
+    },
+
+    "Seed": {
+      "phase_focus": "Launch + Operate",
+      "top_services": [
+        "Startup India Recognition",
+        "Accounting & Bookkeeping",
+        "GST Filings",
+        "Startup ESOPs",
+        "Secretarial Compliances",
+        "Share Purchase Agreement"
+      ],
+      "rationale": "Post-first-round: investor-ready books, ESOP pool creation, secretarial compliance, and clean cap table."
+    },
+
+    "Pre-Series A": {
+      "phase_focus": "Operate + Grow",
+      "top_services": [
+        "Virtual CFO",
+        "Startup ESOPs",
+        "Valuation Advisory",
+        "Startup Fundraise Support",
+        "GST Advisory & Reconciliation",
+        "Secretarial Compliances"
+      ],
+      "rationale": "Scaling operations need a Virtual CFO. Preparing for next round needs valuation and fundraise support."
+    },
+
+    "Series A": {
+      "phase_focus": "Operate + Grow",
+      "top_services": [
+        "Virtual CFO",
+        "FDI Compliances under FEMA",
+        "Valuation Advisory",
+        "Due Diligence",
+        "Startup ESOPs",
+        "Income Tax Consultancy"
+      ],
+      "rationale": "Foreign institutional money comes in at Series A — FEMA compliance is critical. Due diligence for next round."
+    },
+
+    "Series B": {
+      "phase_focus": "Grow",
+      "top_services": [
+        "Valuation Advisory",
+        "Due Diligence",
+        "Transaction Advisory",
+        "FDI Compliances under FEMA",
+        "Flip Transaction",
+        "Income Tax Consultancy"
+      ],
+      "rationale": "Complex transactions, cross-border structures, and M&A considerations become relevant."
+    },
+
+    "Series C": {
+      "phase_focus": "Grow",
+      "top_services": [
+        "Transaction Advisory",
+        "Merger & Acquisition Advisory",
+        "Valuation Advisory",
+        "Flip Transaction",
+        "SME IPO Advisory"
+      ],
+      "rationale": "Strategic transactions, potential M&A, and IPO planning become the dominant needs."
+    },
+
+    "Series D": {
+      "phase_focus": "Grow",
+      "top_services": [
+        "Merger & Acquisition Advisory",
+        "Transaction Advisory",
+        "SME IPO Advisory",
+        "Reverse Flip"
+      ],
+      "rationale": "Late-stage: IPO prep, M&A, or reverse flip (returning to Indian domicile for listing)."
+    },
+
+    "Series E": {
+      "phase_focus": "Grow",
+      "top_services": [
+        "SME IPO Advisory",
+        "Merger & Acquisition Advisory",
+        "Transaction Advisory"
+      ],
+      "rationale": "Pre-IPO or strategic exit planning."
+    },
+
+    "Series F": {
+      "phase_focus": "Grow",
+      "top_services": [
+        "SME IPO Advisory",
+        "Transaction Advisory",
+        "Merger & Acquisition Advisory"
+      ],
+      "rationale": "Exit or listing stage."
+    },
+
+    "Bridge": {
+      "phase_focus": "Operate + Grow",
+      "top_services": [
+        "Virtual CFO",
+        "Valuation Advisory",
+        "Startup Fundraise Support",
+        "Accounting & Bookkeeping",
+        "Income Tax Consultancy"
+      ],
+      "rationale": "Bridge rounds signal financial stress or transition — cash flow management and next-round prep are critical."
+    },
+
+    "Debt": {
+      "phase_focus": "Operate",
+      "top_services": [
+        "Virtual CFO",
+        "Accounting & Bookkeeping",
+        "Income Tax Consultancy",
+        "GST Advisory & Reconciliation",
+        "Valuation Advisory"
+      ],
+      "rationale": "Debt-funded companies are metrics-disciplined — financial operations and tax optimisation are key."
+    },
+
+    "Growth": {
+      "phase_focus": "Grow",
+      "top_services": [
+        "Transaction Advisory",
+        "Valuation Advisory",
+        "Due Diligence",
+        "FDI Compliances under FEMA",
+        "Virtual CFO"
+      ],
+      "rationale": "Growth-stage rounds often involve large institutional or foreign capital — complex structuring needed."
+    },
+
+    "Pre-IPO": {
+      "phase_focus": "Grow",
+      "top_services": [
+        "SME IPO Advisory",
+        "Valuation Advisory",
+        "Due Diligence",
+        "Secretarial Compliances",
+        "Transaction Advisory"
+      ],
+      "rationale": "Full IPO readiness — clean books, secretarial compliance, valuation, and SEBI documentation."
+    },
+
+    "PE": {
+      "phase_focus": "Operate + Grow",
+      "top_services": [
+        "Due Diligence",
+        "Transaction Advisory",
+        "Valuation Advisory",
+        "Income Tax Consultancy",
+        "FDI Compliances under FEMA"
+      ],
+      "rationale": "PE investors require rigorous due diligence and structured transaction advisory."
+    },
+
+    "Angel": {
+      "phase_focus": "Launch + Operate",
+      "top_services": [
+        "Private Limited Company Registration",
+        "Co-founders Agreement",
+        "Startup India Recognition",
+        "GST Registration",
+        "Accounting & Bookkeeping",
+        "Share Purchase Agreement"
+      ],
+      "rationale": "Angel-funded startups need basic legal structure and share documentation for angel investors."
+    },
+
+    "Grant": {
+      "phase_focus": "Launch + Operate",
+      "top_services": [
+        "Section 8 Company Registration",
+        "Startup India Recognition",
+        "MSME Registration",
+        "Accounting & Bookkeeping",
+        "Income Tax Returns"
+      ],
+      "rationale": "Grant recipients often need non-profit structures or specific registrations to qualify and report grant usage."
+    },
+
+    "Unknown": {
+      "phase_focus": "Launch + Operate",
+      "top_services": [
+        "Accounting & Bookkeeping",
+        "GST Registration",
+        "Startup India Recognition"
+      ],
+      "rationale": "Default set — verify funding stage before recommending advanced services."
+    }
+  }
+}

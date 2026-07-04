@@ -1,4 +1,11 @@
 {
+  "_meta": {
+    "purpose": "Controlled vocabulary for AI-assisted startup classification. AI must choose ONLY from these values — never invent new labels.",
+    "created": "2026-07-04",
+    "used_by": ["03_generate_intelligence.py"],
+    "instruction_for_ai": "Choose exactly one Category and exactly one Subsector from the allowed list for that Category. If uncertain, pick the closest match. Never invent a new label. Use the 'Other' Subsector if no specific one fits."
+  },
+
   "Category": [
     "FinTech",
     "SaaS / Software",
@@ -10,7 +17,9 @@
     "Manufacturing / Hardware / Industrial",
     "Services / Consulting / Others"
   ],
+
   "Subsector": {
+
     "FinTech": [
       "Payments",
       "Lending – SME",
@@ -18,35 +27,52 @@
       "Wealth / Investing",
       "InsurTech",
       "Financial Infrastructure",
+      "Banking Tech & Neobanking",
+      "Regulatory Tech & Compliance",
       "Other FinTech"
     ],
+
     "SaaS / Software": [
       "Enterprise SaaS – HR / People",
       "Enterprise SaaS – CRM / Sales",
       "Enterprise SaaS – Finance / ERP",
+      "Enterprise SaaS – Operations & Supply Chain",
       "DevTools / Developer Productivity",
       "Data / Analytics SaaS",
+      "Cloud & DevOps",
+      "Cybersecurity & Data Privacy",
       "Vertical SaaS (Industry-specific)",
       "Other SaaS / Software"
     ],
+
     "D2C / E-commerce": [
       "Consumer Brands – Beauty / Personal Care",
       "Consumer Brands – Food & Beverages",
+      "Consumer Brands – Health & Wellness",
+      "Consumer Brands – Fashion & Apparel",
+      "Consumer Brands – Jewellery & Accessories",
       "Consumer Brands – Home & Lifestyle",
+      "Consumer Brands – Pet Care",
+      "Consumer Brands – Kids & Toys",
       "Marketplaces – B2C",
       "Marketplaces – B2B",
-      "Social Commerce / Creator Commerce",
       "Other D2C / E-commerce"
     ],
+
     "HealthTech / MedTech": [
       "Digital Health – Telemedicine",
       "Digital Health – Remote Monitoring",
       "Digital Health – EMR / Health Records",
       "MedTech Devices – Diagnostics",
-      "MedTech Devices – Therapeutic / Monitoring",
+      "MedTech Devices – Therapeutic",
+      "Pharma & Drug Delivery",
+      "Biotech & Life Sciences",
+      "Fertility & Women's Health",
+      "Fitness & Preventive Health",
       "Healthcare Services Platforms",
       "Other HealthTech / MedTech"
     ],
+
     "AI / Data / DeepTech": [
       "AI Infrastructure & Platforms",
       "Applied AI – Productivity / Automation",
@@ -54,17 +80,25 @@
       "Applied AI – Vertical Solutions",
       "ML Ops / Model Management",
       "Data Infrastructure / Data Platforms",
+      "Computer Vision & Imaging",
+      "Natural Language Processing",
+      "Robotics & Autonomous Systems",
       "Other AI / Data / DeepTech"
     ],
+
     "AgriTech / FoodTech": [
       "Farmer Services & Input Distribution",
       "Agri Supply Chain & Logistics",
+      "Agri Financing & Insurance",
       "Agri Machinery & Equipment",
-      "Food & Nutrition Brands",
+      "Crop Tech & Precision Farming",
       "Food Processing & Cold Chain",
+      "Food & Nutrition Brands",
+      "Food Delivery & Cloud Kitchens",
       "Agri Data / Advisory Platforms",
       "Other AgriTech / FoodTech"
     ],
+
     "CleanTech / Climate / Energy": [
       "EV & Mobility – Vehicles",
       "EV & Mobility – Charging / Battery",
@@ -72,23 +106,37 @@
       "Renewable Energy – Wind / Hydro / Other",
       "Energy Storage / Grid Solutions",
       "Carbon / Climate Services",
+      "Waste Management & Circular Economy",
+      "Water Tech",
       "Other CleanTech / Climate / Energy"
     ],
+
     "Manufacturing / Hardware / Industrial": [
-      "Automotive",
-      "Industrial Equipment & Machinery",
+      "Aerospace & Defence",
+      "Semiconductors & Electronics",
+      "Industrial Equipment & Automation",
       "Industrial IoT / Robotics",
-      "Consumer Electronics / Devices",
-      "Hardware Startups (General)",
+      "Drones & Unmanned Systems",
+      "Space Tech",
+      "Consumer Hardware & Devices",
+      "Automotive & Mobility Hardware",
+      "Advanced Materials",
       "Other Manufacturing / Hardware / Industrial"
     ],
+
     "Services / Consulting / Others": [
-      "Strategy / Management Consulting",
+      "Logistics & Supply Chain Services",
+      "Travel & Hospitality Tech",
+      "EdTech & Skilling",
+      "Real Estate & PropTech",
+      "Gaming & Esports",
+      "Media & Content",
+      "HR & Recruitment Tech",
+      "Legal Tech",
       "IT Services / System Integration",
-      "EdTech / Training Services",
-      "Legal / Compliance / Tax Services",
-      "Marketing / Growth Services",
       "Other Services / Consulting / Others"
     ]
-  }
+  },
+
+  "fallback_rule": "If AI output is not in the allowed list, default to 'Other <Category>' Subsector. If Category itself is uncertain, default to 'Services / Consulting / Others'."
 }
