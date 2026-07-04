@@ -1,0 +1,94 @@
+{
+  "Category": [
+    "FinTech",
+    "SaaS / Software",
+    "D2C / E-commerce",
+    "HealthTech / MedTech",
+    "AI / Data / DeepTech",
+    "AgriTech / FoodTech",
+    "CleanTech / Climate / Energy",
+    "Manufacturing / Hardware / Industrial",
+    "Services / Consulting / Others"
+  ],
+  "Subsector": {
+    "FinTech": [
+      "Payments",
+      "Lending – SME",
+      "Lending – Consumer / BNPL",
+      "Wealth / Investing",
+      "InsurTech",
+      "Financial Infrastructure",
+      "Other FinTech"
+    ],
+    "SaaS / Software": [
+      "Enterprise SaaS – HR / People",
+      "Enterprise SaaS – CRM / Sales",
+      "Enterprise SaaS – Finance / ERP",
+      "DevTools / Developer Productivity",
+      "Data / Analytics SaaS",
+      "Vertical SaaS (Industry-specific)",
+      "Other SaaS / Software"
+    ],
+    "D2C / E-commerce": [
+      "Consumer Brands – Beauty / Personal Care",
+      "Consumer Brands – Food & Beverages",
+      "Consumer Brands – Home & Lifestyle",
+      "Marketplaces – B2C",
+      "Marketplaces – B2B",
+      "Social Commerce / Creator Commerce",
+      "Other D2C / E-commerce"
+    ],
+    "HealthTech / MedTech": [
+      "Digital Health – Telemedicine",
+      "Digital Health – Remote Monitoring",
+      "Digital Health – EMR / Health Records",
+      "MedTech Devices – Diagnostics",
+      "MedTech Devices – Therapeutic / Monitoring",
+      "Healthcare Services Platforms",
+      "Other HealthTech / MedTech"
+    ],
+    "AI / Data / DeepTech": [
+      "AI Infrastructure & Platforms",
+      "Applied AI – Productivity / Automation",
+      "Applied AI – Enterprise",
+      "Applied AI – Vertical Solutions",
+      "ML Ops / Model Management",
+      "Data Infrastructure / Data Platforms",
+      "Other AI / Data / DeepTech"
+    ],
+    "AgriTech / FoodTech": [
+      "Farmer Services & Input Distribution",
+      "Agri Supply Chain & Logistics",
+      "Agri Machinery & Equipment",
+      "Food & Nutrition Brands",
+      "Food Processing & Cold Chain",
+      "Agri Data / Advisory Platforms",
+      "Other AgriTech / FoodTech"
+    ],
+    "CleanTech / Climate / Energy": [
+      "EV & Mobility – Vehicles",
+      "EV & Mobility – Charging / Battery",
+      "Renewable Energy – Solar",
+      "Renewable Energy – Wind / Hydro / Other",
+      "Energy Storage / Grid Solutions",
+      "Carbon / Climate Services",
+      "Other CleanTech / Climate / Energy"
+    ],
+    "Manufacturing / Hardware / Industrial": [
+      "Automotive",
+      "Industrial Equipment & Machinery",
+      "Industrial IoT / Robotics",
+      "Consumer Electronics / Devices",
+      "Hardware Startups (General)",
+      "Other Manufacturing / Hardware / Industrial"
+    ],
+    "Services / Consulting / Others": [
+      "Strategy / Management Consulting",
+      "IT Services / System Integration",
+      "EdTech / Training Services",
+      "Legal / Compliance / Tax Services",
+      "Marketing / Growth Services",
+      "Other Services / Consulting / Others"
+    ]
+  }
+}
