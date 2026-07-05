@@ -92,19 +92,74 @@ df["company_name"] = df["company_name"].str.replace(r"^[\ufeff\u200b]+", "", reg
 # ── 3. funding_amount_usd ─────────────────────────────────────────────────
 INR_TO_USD = 85.0      # approximate fixed rate
 
+
+def _extract_usd_first(s: str):
+    """
+    If the string contains an explicit USD amount (preceded by $ or followed
+    by 'million'/'mn'/'billion'), extract and return it as USD float.
+    Returns None if no clear USD figure is found.
+
+    Handles patterns like:
+        "$5 million (Rs 43 Cr)"  → 5_000_000
+        "Rs 65 crore ($7.7 million)" → 7_700_000
+        "$30 Mn"                 → 30_000_000
+        "$7.8 million"           → 7_800_000
+        "$1.2 Mn"                → 1_200_000
+        "$200K"                  → 200_000
+    """
+    # Pattern: $ followed by number and optional M/K/B/million/mn/billion/bn
+    m = re.search(
+        r"\$([\d,.]+)\s*(?:(billion|bn|million|mn|mn\b|m\b|k\b|b\b))",
+        s, re.I
+    )
+    if m:
+        num = float(m.group(1).replace(",", ""))
+        unit = m.group(2).lower()
+        mult = (
+            1e9 if unit in ("billion", "bn")
+            else 1e6 if unit in ("million", "mn", "m")
+            else 1e3 if unit == "k"
+            else 1
+        )
+        return round(num * mult, 2)
+
+    # Pattern: number followed by 'million' or 'mn' preceded by $
+    # already covered above; also handle plain $NNN,NNN
+    m2 = re.search(r"\$([\d,]+(?:\.\d+)?)\s*([MKBmkb])?", s)
+    if m2:
+        num = float(m2.group(1).replace(",", ""))
+        unit = (m2.group(2) or "").upper()
+        mult = {"M": 1e6, "K": 1e3, "B": 1e9}.get(unit, 1)
+        return round(num * mult, 2)
+
+    return None
+
+
 def parse_amount(raw: str):
     """Return numeric USD float, or None if unparseable."""
     s = str(raw).strip()
     if not s or s.lower() in ("undisclosed", "nan", "", "–", "-"):
         return None
 
-    is_inr = bool(re.search(r"(?i)(rs\.?|inr|crore|lakh|₹)", s))
+    has_usd = bool(re.search(r"\$", s))
+    has_inr = bool(re.search(r"(?i)(rs\.?|inr|crore|lakh|₹)", s))
 
-    # strip currency symbols / words
+    # ── KEY FIX: when string has BOTH currencies, prefer the USD figure ──
+    if has_usd and has_inr:
+        usd_val = _extract_usd_first(s)
+        if usd_val is not None:
+            return usd_val
+        # fall through to INR path if USD extraction failed
+
+    is_inr = has_inr and not has_usd
+
+    # strip currency symbols / words for generic parsing
     s2 = re.sub(r"(?i)(rs\.?\s*|inr\s*|\$|₹|usd\s*)", "", s)
     s2 = re.sub(r"(?i)approx.*$", "", s2).strip().rstrip(".")
+    # strip parenthetical clarifications like "(~$12 million)"
+    s2 = re.sub(r"\([^)]*\)", "", s2).strip()
 
-    # range like "$2-5M" → midpoint
+    # range like "$2-5M" or "2-5M" → midpoint
     rng = re.match(r"([\d.]+)\s*[-–]\s*([\d.]+)\s*([MKBmkb]?)", s2)
     if rng:
         lo, hi = float(rng.group(1)), float(rng.group(2))
@@ -119,7 +174,7 @@ def parse_amount(raw: str):
         val = float(lt.group(1)) * mult
         return round(val / INR_TO_USD if is_inr else val, 2)
 
-    # crore / lakh
+    # crore / lakh  (only reached when pure INR, no $ present)
     crore = re.search(r"([\d,.]+)\s*(?:crore)", s2, re.I)
     if crore:
         return round((float(crore.group(1).replace(",", "")) * 1e7) / INR_TO_USD, 2)
@@ -128,14 +183,21 @@ def parse_amount(raw: str):
     if lakh:
         return round((float(lakh.group(1).replace(",", "")) * 1e5) / INR_TO_USD, 2)
 
-    # plain number with optional M/K/B
-    plain = re.match(r"([\d,\.]+)\s*([MKBmkb]?)", s2.replace(",", ""))
+    # plain number with optional M/K/B  (million/mn handled inline)
+    s2_clean = s2.replace(",", "")
+    plain = re.match(r"([\d\.]+)\s*(million|mn|billion|bn|[MKBmkb])?", s2_clean, re.I)
     if plain:
         try:
             num = float(plain.group(1))
         except ValueError:
             return None
-        mult = {"M": 1e6, "K": 1e3, "B": 1e9}.get(plain.group(2).upper(), 1)
+        unit = (plain.group(2) or "").lower()
+        mult = (
+            1e9 if unit in ("billion", "bn")
+            else 1e6 if unit in ("million", "mn", "m")
+            else 1e3 if unit == "k"
+            else 1
+        )
         val = num * mult
         return round(val / INR_TO_USD if is_inr else val, 2)
 
@@ -288,3 +350,12 @@ print("Funding stage breakdown (top 15):")
 print(df_out["funding_stage"].value_counts().head(15).to_string())
 print()
 print(f"funding_amount_usd parsed: {df_out['funding_amount_usd'].notna().sum()} / {len(df_out)}")
+
+# ── 13. spot-check mixed-currency rows ────────────────────────────────────
+print()
+print("Mixed-currency spot-check (rows with both $ and Rs/INR in raw amount):")
+mixed = df_out[
+    df_out["funding_amount_raw"].str.contains(r"\$", na=False) &
+    df_out["funding_amount_raw"].str.contains(r"(?i)(rs\.?|inr|crore|lakh)", na=False)
+][["company_name", "funding_amount_raw", "funding_amount_usd"]]
+print(mixed.to_string(index=False))
