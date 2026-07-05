@@ -4,11 +4,11 @@ on:
   workflow_dispatch:
     inputs:
       batch_size:
-        description: 'Number of startups to process per run'
+        description: 'Number of startups to process per run (default 20)'
         required: false
         default: '20'
   schedule:
-    # Runs every Sunday at 2 AM IST (20:30 UTC Saturday)
+    # Every Sunday at 2 AM IST (20:30 UTC Saturday)
     - cron: '30 20 * * 0'
 
 jobs:
@@ -21,28 +21,28 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Python
+      - name: Set up Python 3.11
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
       - name: Install dependencies
         run: |
-          pip install pandas openai python-dotenv tqdm
+          pip install pandas google-genai
 
       - name: Run enrichment script
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           python scripts/enrich_startups.py \
             --input  data/FUST_cleaned.csv \
-            --output data/FUST_enriched.json \
+            --output data/task360_intelligence.json \
             --batch  ${{ github.event.inputs.batch_size || '20' }}
 
       - name: Commit enriched output
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/FUST_enriched.json
-          git diff --cached --quiet || git commit -m "chore: update FUST_enriched.json [skip ci]"
+          git add data/task360_intelligence.json data/skipped_rows.json || true
+          git diff --cached --quiet || git commit -m "chore: update task360_intelligence.json [skip ci]"
           git push
