@@ -72,6 +72,7 @@
         "Startup India Recognition",
         "Accounting & Bookkeeping",
         "GST Filings",
+        "GST Advisory & Reconciliation",
         "FDI Compliances under FEMA",
         "Secretarial Compliances"
       ],
@@ -80,6 +81,7 @@
         "Startup Fundraise Support",
         "Due Diligence",
         "Flip Transaction",
+        "Reverse Flip",
         "Income Tax Consultancy"
       ],
       "notes": "FinTechs receiving foreign investment almost always need FDI/FEMA compliance. RBI-regulated entities have additional secretarial obligations."
@@ -87,18 +89,16 @@
 
     "SaaS / Software": {
       "always_relevant": [
-        "Private Limited Company Registration",
         "GST Registration",
         "Startup India Recognition",
         "Accounting & Bookkeeping",
-        "GST Filings",
-        "Startup ESOPs",
-        "Employment Contract"
+        "GST Filings"
       ],
       "growth_stage_relevant": [
         "Valuation Advisory",
         "Startup Fundraise Support",
         "Flip Transaction",
+        "Reverse Flip",
         "FDI Compliances under FEMA",
         "Virtual CFO"
       ],
@@ -109,17 +109,16 @@
       "always_relevant": [
         "GST Registration",
         "GST Filings",
+        "GST Advisory & Reconciliation",
         "FSSAI Registration",
         "Trademark Registration",
         "Accounting & Bookkeeping",
         "Shop & Establishment Registration"
       ],
       "growth_stage_relevant": [
-        "Import Export Code (IEC)",
-        "International Trade Advisory",
         "Valuation Advisory",
         "Startup Fundraise Support",
-        "Virtual CFO"
+        "Income Tax Consultancy"
       ],
       "notes": "D2C food brands need FSSAI. All e-commerce brands need GST and trademark protection. Exporters need IEC."
     },
@@ -289,19 +288,21 @@
         "Valuation Advisory",
         "Due Diligence",
         "Startup ESOPs",
+        "GST Advisory & Reconciliation",
         "Income Tax Consultancy"
       ],
       "rationale": "Foreign institutional money comes in at Series A — FEMA compliance is critical. Due diligence for next round."
     },
 
     "Series B": {
-      "phase_focus": "Grow",
+      "phase_focus": "Operate + Grow",
       "top_services": [
+        "Virtual CFO",
+        "FDI Compliances under FEMA",
         "Valuation Advisory",
         "Due Diligence",
-        "Transaction Advisory",
-        "FDI Compliances under FEMA",
-        "Flip Transaction",
+        "Startup ESOPs",
+        "GST Advisory & Reconciliation",
         "Income Tax Consultancy"
       ],
       "rationale": "Complex transactions, cross-border structures, and M&A considerations become relevant."

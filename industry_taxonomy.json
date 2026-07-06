@@ -138,5 +138,59 @@
     ]
   },
 
+  "by_category": {
+    "FinTech": {
+      "always_relevant": [
+        "GST Registration",
+        "Startup India Recognition",
+        "Accounting & Bookkeeping",
+        "GST Filings",
+        "GST Advisory & Reconciliation",
+        "FDI Compliances under FEMA",
+        "Secretarial Compliances"
+      ],
+      "growth_stage_relevant": [
+        "Valuation Advisory",
+        "Startup Fundraise Support",
+        "Due Diligence",
+        "Flip Transaction",
+        "Reverse Flip",
+        "Income Tax Consultancy"
+      ]
+    },
+    "SaaS / Software": {
+      "always_relevant": [
+        "GST Registration",
+        "Startup India Recognition",
+        "Accounting & Bookkeeping",
+        "GST Filings"
+      ],
+      "growth_stage_relevant": [
+        "Valuation Advisory",
+        "Startup Fundraise Support",
+        "Flip Transaction",
+        "Reverse Flip",
+        "FDI Compliances under FEMA",
+        "Virtual CFO"
+      ]
+    },
+    "D2C / E-commerce": {
+      "always_relevant": [
+        "GST Registration",
+        "GST Filings",
+        "GST Advisory & Reconciliation",
+        "FSSAI Registration",
+        "Trademark Registration",
+        "Accounting & Bookkeeping",
+        "Shop & Establishment Registration"
+      ],
+      "growth_stage_relevant": [
+        "Valuation Advisory",
+        "Startup Fundraise Support",
+        "Income Tax Consultancy"
+      ]
+    }
+  },
+
   "fallback_rule": "If AI output is not in the allowed list, default to 'Other <Category>' Subsector. If Category itself is uncertain, default to 'Services / Consulting / Others'."
 }
